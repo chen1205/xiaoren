@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            background: url("timg.jpg");
+            background-size: 1520px 710px;
+        }
+    </style>
+</head>
+<body>
+<canvas width="1520" height="710"></canvas>
+</body>
+<script>
+
+    var arr = [ [0,0,1,1,1],
+                [1,0,0,0,1],
+                [1,1,0,1,1],
+                [1,0,0,0,1],
+                [1,1,1,0,1]];
+
+    var c=document.querySelector('canvas');
+
+    var ctx=c.getContext('2d');
+    var img=new Image();
+    var index=0;
+    var h=0;
+    var t=0;
+    var y=0;
+    var timer=null;
+    var timers=null;
+
+    img.src='NPCrabbitbaby.png';
+    img.onload=function () {
+        timers=setInterval(function () {
+            ctx.clearRect(0,0,1520,710);
+            index++;
+            index=index>3 ? index=0:index;
+            ctx.drawImage(img,index*40,h*65,40,65,t,y,40,65)
+        },100);
+    };
+    window.document.onkeydown=function (e) {
+
+
+        var ev= e ||event;
+        if(ev.keyCode==37){
+            h=1;
+            clearInterval(timer);
+            timer=setInterval(function () {
+                t-=4;
+            },30)
+        }
+        if(ev.keyCode==38){
+            h=3;
+            clearInterval(timer);
+            timer=setInterval(function () {
+                y-=4;
+            },30)
+        }
+        if(ev.keyCode==39){
+            h=2;
+            clearInterval(timer);
+            timer=setInterval(function () {
+                t+=4;
+            },30)
+        }
+        if(ev.keyCode==40){
+            h=0;
+            clearInterval(timer);
+            timer=setInterval(function () {
+                y+=4;
+            },30)
+        }
+
+    };
+    window.onkeyup=function () {
+        clearInterval(timer);
+    }
+
+</script>
+</html>
